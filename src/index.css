@@ -4,3 +4,10 @@
   box-sizing: border-box;
 
 }
+/* index.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #faf9f7; /* beyaz yerine soft gri */
+ 
+}

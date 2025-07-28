@@ -1,17 +1,16 @@
 import React from 'react';
-import { Box, Typography, Container } from '@mui/material';
+import { Container, Typography } from '@mui/material';
+import ProjectsGrid from '../components/projects/ProjectsGrid';
+import { sampleProjects } from '../data/projectsData';
 
 const ProjectsPage = () => {
   return (
-    <Container sx={{ mt: 4 }}>
-      <Typography variant="h4" gutterBottom>
-        Projeler
+    <Container sx={{ mt: 4, mb: 6 }}>
+      <Typography variant="h4" gutterBottom sx={{ fontWeight: 700 }}>
+        Tüm Projeler
       </Typography>
-      <Box>
-        <Typography variant="body1">
-          Tamamlanan projeler listelenecek... (yakında eklenecek ProjectCard bileşenleri burada yer alacak.)
-        </Typography>
-      </Box>
+
+      <ProjectsGrid projects={sampleProjects} /> {/* 🔹 tüm projeler */}
     </Container>
   );
 };
