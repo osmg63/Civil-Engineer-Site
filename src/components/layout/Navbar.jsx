@@ -13,9 +13,10 @@ import {
   ListItemText,
   useTheme,
   useMediaQuery,
+  Slide
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const navItems = [
   { label: "Anasayfa", path: "/" },
@@ -27,20 +28,31 @@ const navItems = [
 const Navbar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hideNavbar, setHideNavbar] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const location = useLocation();
 
-  // 🔹 Sadece Anasayfa mı kontrolü
-  const isHomePage = location.pathname === "/";
-
+  // Scroll yönü kontrolü
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
+
+      // aşağı kaydırıyorsa navbar gizlensin, yukarı kaydırıyorsa gösterilsin
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setHideNavbar(true);
+      } else {
+        setHideNavbar(false);
+      }
+
+      setScrolled(currentScrollY > 50);
+      setLastScrollY(currentScrollY);
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -77,78 +89,71 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar
-        position="fixed"
-        sx={{
-          background: !isHomePage
-            ? "#2E3B55"
-            : scrolled
-            ? "#2E3B55"
-            : "rgba(0,0,0,0.4)",
-          boxShadow:
-            scrolled || !isHomePage
-              ? "0 2px 8px rgba(0,0,0,0.3)"
-              : "none",
-          transition: "background-color 0.3s ease, box-shadow 0.3s ease",
-           height: { xs: 70, md: 80 },
-           
-        }}
-      >
-        <Toolbar
+      <Slide direction="down" in={!hideNavbar}>
+        <AppBar
           sx={{
-            maxWidth: 1150,
-            mx: "auto",
-            px: { xs: 2, md: 0 },
-            display: "flex",
-            justifyContent: "space-between",
-            height: "100%",
-            width: "100%",
+            background: scrolled ? "#2E3B55" : "rgba(0,0,0,0.4)",
+            boxShadow: scrolled ? "0 2px 8px rgba(0,0,0,0.3)" : "none",
+            transition: "background-color 0.3s ease, box-shadow 0.3s ease",
+            height: { xs: 70, md: 80 },
           }}
         >
-          <Typography
-            variant="h6"
-            component={Link}
-            to="/"
+          <Toolbar
             sx={{
-              color: "#fff",
-              textDecoration: "none",
-              fontWeight: "bold",
-              fontSize: { xs: "1.25rem", md: "1.5rem" },
-              userSelect: "none",
+              maxWidth: 1150,
+              mx: "auto",
+              px: { xs: 2, md: 0 },
+              display: "flex",
+              justifyContent: "space-between",
+              height: "100%",
+              width: "100%",
             }}
           >
-            FİRMA ADI
-          </Typography>
-
-          {!isMobile && (
-            <Box>
-              {navItems.map((item) => (
-                <Button
-                  key={item.label}
-                  color="inherit"
-                  component={Link}
-                  to={item.path}
-                  sx={{ ml: 2 }}
-                >
-                  {item.label}
-                </Button>
-              ))}
-            </Box>
-          )}
-
-          {isMobile && (
-            <IconButton
-              color="inherit"
-              edge="end"
-              onClick={toggleDrawer(true)}
-              aria-label="menu"
-              size="large"
+            <Typography
+              variant="h6"
+              component={Link}
+              to="/"
+              sx={{
+                color: "#fff",
+                textDecoration: "none",
+                fontWeight: "bold",
+                fontSize: { xs: "1.25rem", md: "1.5rem" },
+                userSelect: "none",
+              }}
             >
-              <MenuIcon />
-            </IconButton>
-          )}
-        </Toolbar>
-      </AppBar>
+              FİRMA ADI
+            </Typography>
+
+            {!isMobile && (
+              <Box>
+                {navItems.map((item) => (
+                  <Button
+                    key={item.label}
+                    color="inherit"
+                    component={Link}
+                    to={item.path}
+                    sx={{ ml: 2 }}
+                  >
+                    {item.label}
+                  </Button>
+                ))}
+              </Box>
+            )}
+
+            {isMobile && (
+              <IconButton
+                color="inherit"
+                edge="end"
+                onClick={toggleDrawer(true)}
+                aria-label="menu"
+                size="large"
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
+          </Toolbar>
+        </AppBar>
+      </Slide>
 
       <Drawer
         anchor="right"
@@ -162,7 +167,6 @@ const Navbar = () => {
         {drawer}
       </Drawer>
 
-      {/* Navbar sabit olduğu için boşluk bırakıyoruz */}
       <Toolbar />
     </>
   );
