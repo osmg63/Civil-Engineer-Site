@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Box,
     Typography,
     Container,
     TextField,
     Button,
-    Grid,
     Paper,
+    Alert,
 } from '@mui/material';
 import MapSection from '../components/MapSection';
 
-const ContactCard = ({ icon, label, value }) => (
+const ContactCard = ({ icon, label, value, href }) => (
     <Paper
-        elevation={3}
+        elevation={2}
         sx={{
-            p: 3,
+            p: 1,
             textAlign: 'center',
             borderRadius: 2,
             display: 'flex',
@@ -22,7 +22,7 @@ const ContactCard = ({ icon, label, value }) => (
             alignItems: 'center',
             gap: 1,
             minWidth: 180,
-            flex: '1 1 0', // Esnek ve eşit genişlik
+            flex: '1 1 0',
         }}
     >
         <Typography variant="h5" component="div">
@@ -31,93 +31,161 @@ const ContactCard = ({ icon, label, value }) => (
         <Typography variant="subtitle1" color="text.secondary">
             {label}
         </Typography>
-        <Typography variant="body1" fontWeight="bold">
-            {value}
-        </Typography>
+        {href ? (
+            <Box
+                component="a"
+                href={href}
+                sx={{
+                    color: 'primary.main',
+                    textDecoration: 'none',
+                    fontWeight: '600',
+                    '&:hover': {
+                        textDecoration: 'underline',
+                        cursor: 'pointer',
+                    },
+                }}
+            >
+                {value}
+            </Box>
+        ) : (
+            <Typography variant="body1" fontWeight="semibold">
+                {value}
+            </Typography>
+        )}
     </Paper>
 );
 
 const ContactPage = () => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
+    const [success, setSuccess] = useState(false);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch('https://formsubmit.co/ajax/dinoekin@gmail.com', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    message,
+                }),
+            });
+
+            if (response.ok) {
+                setSuccess(true);
+                setName('');
+                setEmail('');
+                setMessage('');
+                setTimeout(() => setSuccess(false), 2000); 
+            } else {
+                alert('Gönderim başarısız oldu.');
+            }
+        } catch (error) {
+            alert('Bir hata oluştu.');
+        }
+    };
+
     return (
         <Container sx={{ mt: 4 }}>
-            {/* Kart satırı: iletişim bilgileri */}
+            <Typography variant="h5" mb={2}>
+                Bize Ulaşın
+            </Typography>
+
             <Box
                 sx={{
                     display: 'flex',
                     justifyContent: 'space-evenly',
                     gap: 3,
                     mb: 5,
-                    flexWrap: 'wrap', // mobilde alt alta insin
+                    flexWrap: 'wrap',
                 }}
             >
-                <ContactCard icon="📞" label="Telefon" value="+90 555 123 45 67" />
-                <ContactCard icon="📧" label="E-posta" value="info@insaatmuhendisi.com" />
-                <ContactCard icon="📍" label="Adres" value="Gaziantep, Türkiye" />
+                <ContactCard icon="📞" label="Telefon" value="+90 555 123 45 67" href="tel:+905551234567" />
+                <ContactCard icon="📧" label="E-posta" value="info@insaatmuhendisi.com" href="mailto:info@insaatmuhendisi.com" />
+                <ContactCard icon="📍" label="Adres" value="Mücahitler, 72037. Sk No:2, 27060 Şehitkamil/Gaziantep" />
             </Box>
+ {success && (
+                        <Alert severity="success" sx={{ mb: 2 }}>
+                            Mesajınız gönderildi!
+                        </Alert>
+                    )}
 
-            {/* Harita ve Form yan yana, eşit genişlik ve yükseklik */}
-            <Grid container spacing={6} sx={{ minHeight: 400 ,   justifyContent: 'space-evenly', }}>
-                {/* Harita */}
-                <Grid
-                    item
-                    xs={12}
-                    md={12}
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: { xs: 'column', md: 'row' },
+                    minHeight: 'calc(100vh - 64px)',
+                    width: '100%',
+                }}
+            >
+                <Box
                     sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        height: { xs: '300px', md: 'auto' }, // mobilde belirli yükseklik, desktopta otomatik
+                        flex: 1,
+                        height: { xs: 300, md: 'auto' },
                     }}
                 >
-                    <Box sx={{ flexGrow: 1 }}>
-                        <MapSection />
-                    </Box>
-                </Grid>
-
-                {/* Form */}
-                <Grid
-                    item
-                    xs={12}
-                    md={6}
+                    <MapSection />
+                </Box>
+               
+                <Paper
+                    elevation={2}
                     sx={{
+                        flex: 1,
+                        ml: 2,
                         display: 'flex',
                         flexDirection: 'column',
-                        height: { xs: 'auto', md: 'auto' },
+                        p: 1,
+                        borderRadius: 2,
+                        maxHeight: 400,
                     }}
+                    component="form"
+                    onSubmit={handleSubmit}
                 >
-                    <Box
-                        component="form"
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'space-between',
-                            height: '100%',
-                            minHeight: 300,
-                            overflowY: 'auto', // taşmayı önler, kaydırma çıkar
-                        }}
+                  
+                    <TextField
+                        fullWidth
+                        label="Adınız"
+                        margin="normal"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                    />
+                    <TextField
+                        fullWidth
+                        label="E-posta"
+                        margin="normal"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                    <TextField
+                        fullWidth
+                        label="Mesajınız"
+                        multiline
+                        rows={5}
+                        margin="normal"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        required
+                    />
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        sx={{ mt: 1, alignSelf: 'flex-start' }}
                     >
-                        <Typography variant="h5" mb={2}>
-                            Bize Ulaşın
-                        </Typography>
-                        <TextField fullWidth label="Adınız" margin="normal" />
-                        <TextField fullWidth label="E-posta" margin="normal" />
-                        <TextField
-                            fullWidth
-                            label="Mesajınız"
-                            multiline
-                            rows={5}
-                            margin="normal"
-                        />
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            sx={{ mt: 2, alignSelf: 'flex-start' }}
-                        >
-                            Gönder
-                        </Button>
-                    </Box>
-                </Grid>
-            </Grid>
-
+                        Gönder
+                    </Button>
+                </Paper>
+            </Box>
         </Container>
     );
 };
