@@ -22,49 +22,48 @@ const HeroSection = () => {
     <Box
       component="section"
       sx={{
-    position: "relative",
-    color: "white",
-    minHeight: { xs: "450px", md: "600px" },
-    display: "flex",
-    alignItems: "center",
-    width: "100%",
-    backgroundImage: `url(${insaatBg})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    mt: "-64px", // ✅ Resmi yukarı taşır
-    
-    // parlaklık azaltıldı
-    "&::before": {
-  content: '""',
-  position: "absolute",
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  bgcolor: "rgba(0,0,0,0.10)",
-  zIndex: 1,
-  pointerEvents: "none",  // İşte bu satır eklendi
-},
-
-  }}
->
-  <Container
-    maxWidth={false}
-    sx={{
-      maxWidth: `${maxContentWidth}px`,
-      mx: "auto",
-      px: { xs: 3, md: 3 },
-      
-    }}
-  >
-    <Box
-      sx={{
+        position: "relative",
+        color: "white",
+        minHeight: { xs: "450px", md: "600px" },
+        display: "flex",
+        alignItems: "center",
         width: "100%",
-        textAlign: "left",
-        pt: { xs: 12, sm: 14, md: 16 }, // ✅ İçerik navbarın altından başlar
+        backgroundImage: `url(${insaatBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        mt: "-64px", // ✅ Resmi yukarı taşır
+        "&::before": {
+          content: '""',
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          bgcolor: "rgba(0,0,0,0.10)",
+          zIndex: 1,
+          pointerEvents: "none",  // İşte bu satır eklendi
+        },
+
       }}
     >
+      <Container
+        maxWidth={false}
+        sx={{
+          maxWidth: `${maxContentWidth}px`,
+          mx: "auto",
+          px: { xs: 3, md: 3 },
+
+        }}
+      >
+        <Box
+          sx={{
+            width: "100%",
+            textAlign: "left",
+            pt: { xs: 12, sm: 14, md: 16 }, // ✅ İçerik navbarın altından başlar
+          }}
+        >
+          
           <Typography
             component="h1"
             variant="h3"
@@ -74,11 +73,11 @@ const HeroSection = () => {
               mb: 3,
               lineHeight: 1.2,
               fontSize: { xs: "1.8rem", sm: "2.3rem", md: "2.8rem" }, // ✅ Responsive
-               textShadow: "0 0 3px rgba(0,0,0,0.6)",
-    color: "#fff",
+              textShadow: "0 0 3px rgba(0,0,0,0.6)",
+              color: "#fff",
             }}
           >
-            İnşaat Mühendisi Mustafa Gümüş
+            C1 İnsaat & Projeler
           </Typography>
 
           <Typography
@@ -90,13 +89,15 @@ const HeroSection = () => {
               fontFamily: "'Poppins', sans-serif",
               mb: 4,
               lineHeight: 1.6,
-              opacity: 0.9,
+              opacity: 1,
               fontSize: { xs: "1rem", sm: "1.1rem", md: "1.25rem" }, // ✅ Responsive
+              textShadow: "0 0 2px rgba(0,0,0,0.5)",
               
+
             }}
           >
             Sağlam yapılar, güvenilir çözümler. 10+ yıllık tecrübe ile altyapı ve
-            üstyapı projelerinde yanınızdayım.
+            üstyapı projelerinde yanınızdayız.
           </Typography>
 
           <Stack
@@ -165,7 +166,7 @@ const HeroSection = () => {
               <InstagramIcon fontSize="large" />
             </IconButton>
 
-           
+
             <IconButton
               component={MuiLink}
               href="https://www.facebook.com/mustafa.gumus.31149"

@@ -163,6 +163,7 @@ const Navbar = () => {
         PaperProps={{
           sx: { bgcolor: "#2E3B55", color: "white" },
         }}
+        
       >
         {drawer}
       </Drawer>
