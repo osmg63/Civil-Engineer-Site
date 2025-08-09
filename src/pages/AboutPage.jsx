@@ -15,7 +15,7 @@ const AboutPage = () => {
           backgroundImage: `url(${projectsBg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center-top',
-           mt: "-64px", // ✅ Resmi yukarı taşır
+          mt: "-64px", // ✅ Resmi yukarı taşır
         }}
       />
 
@@ -55,18 +55,10 @@ const AboutPage = () => {
                 textAlign: 'justify',
               }}
             >
-              2010 yılında Gaziantep Üniversitesi İnşaat Mühendisliği bölümünden mezun olduktan sonra,
-              2015 yılından itibaren çeşitli inşaat projelerinde aktif olarak görev aldım.
-              XYZ İnşaat’ta Proje Mühendisi, ardından ABC Yapı’da Şantiye Şefi olarak çalıştım.
-              2022’den bu yana ise freelance olarak statik proje danışmanlığı yapmaktayım.
-              Statik proje çizimi, saha uygulamaları ve şantiye yönetimi konularında geniş bir deneyime sahibim.
-              Yapı Denetim Sertifikası, AutoCAD & Sta4CAD uzmanlığı ve İş Sağlığı ve Güvenliği eğitimi gibi
-              profesyonel yetkinliklerimle, her projede kalite ve güvenliği ön planda tutarım.
-              Teknik bilgiyle estetiği birleştirerek yenilikçi çözümler üretmek,
-              detaylara gösterdiğim özen ve mühendislik disiplinimle değer yaratmak temel prensibimdir.
+             2017 yılında Kahramanmaraş Sütçü İmam Üniversitesi İnşaat Mühendisliği bölümünden mezun olduktan sonra, çeşitli inşaat projelerinde aktif olarak görev aldım. Statik proje çizimi, saha uygulamaları, güçlendirme proje ve uygulamaları, FRP ve çelik güçlendirme çalışmaları ile betonarme mantolama konularında geniş bir deneyime sahibim. Ayrıca alt yapı ve üst yapı inşaat projelerinde taahhüt ve müteahhitlik hizmetleri sundum. Yapı Denetim Sertifikası, İdecad, Sta4CAD ve AutoCAD uzmanlığı ile İş Sağlığı ve Güvenliği eğitimi gibi profesyonel yetkinliklerimle, her projede kalite ve güvenliği ön planda tutarım. Teknik bilgiyle estetiği birleştirerek yenilikçi çözümler üretmek, detaylara gösterdiğim özen ve mühendislik disiplinimle değer yaratmak temel prensibimdir. Kadromuzda deneyimli mimar ve diğer mühendis arkadaşlarımız da yer almakta olup, disiplinler arası iş birliği ile projelerde bütüncül ve kaliteli çözümler sunmaktayız.
             </Typography>
 
-           
+
           </CardContent>
         </Card>
       </Container>

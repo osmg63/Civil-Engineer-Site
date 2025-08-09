@@ -121,7 +121,7 @@ const Navbar = () => {
                 userSelect: "none",
               }}
             >
-              FİRMA ADI
+              C1 İnşaat 
             </Typography>
 
             {!isMobile && (

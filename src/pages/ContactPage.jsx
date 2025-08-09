@@ -129,9 +129,9 @@ const ContactPage = () => {
             flexWrap: 'wrap',
           }}
         >
-          <ContactCard icon="📞" label="Telefon" value="+90 555 123 45 67" href="tel:+905551234567" />
-          <ContactCard icon="📧" label="E-posta" value="info@insaatmuhendisi.com" href="mailto:info@insaatmuhendisi.com" />
-          <ContactCard icon="📍" label="Adres" value="Mücahitler, 72037. Sk No:2, 27060 Şehitkamil/Gaziantep" />
+          <ContactCard icon="📞" label="Telefon" value="+90 506 934 8329" href="tel:+905551234567" />
+          <ContactCard icon="📧" label="E-posta" value="mustafagumus@okantowers.com" href="mailto:info@insaatmuhendisi.com" />
+          <ContactCard icon="📍" label="Adres" value="Mücahitler, 52078 Sk Bina No:2, Kat:1 Ofis: 19  Şehitkamil/Gaziantep" />
         </Box>
 
         {success && (

@@ -78,7 +78,7 @@ const HeroSection = () => {
     color: "#fff",
             }}
           >
-            İnşaat Mühendisi Osman Gümüş
+            İnşaat Mühendisi Mustafa Gümüş
           </Typography>
 
           <Typography
@@ -153,7 +153,7 @@ const HeroSection = () => {
           >
             <IconButton
               component={MuiLink}
-              href="https://www.instagram.com/yourprofile"
+              href="https://www.instagram.com/gumus6641?igsh=NGlqcXFoMGcwZ2c1 "
               target="_blank"
               rel="noopener"
               aria-label="Instagram"
@@ -165,23 +165,10 @@ const HeroSection = () => {
               <InstagramIcon fontSize="large" />
             </IconButton>
 
+           
             <IconButton
               component={MuiLink}
-              href="https://www.linkedin.com/in/yourprofile"
-              target="_blank"
-              rel="noopener"
-              aria-label="LinkedIn"
-              sx={{
-                color: "white",
-                "&:hover": { color: "#0A66C2" },
-              }}
-            >
-              <LinkedInIcon fontSize="large" />
-            </IconButton>
-
-            <IconButton
-              component={MuiLink}
-              href="https://www.facebook.com/yourprofile"
+              href="https://www.facebook.com/mustafa.gumus.31149"
               target="_blank"
               rel="noopener"
               aria-label="Facebook"
@@ -195,7 +182,7 @@ const HeroSection = () => {
 
             <IconButton
               component={MuiLink}
-              href="https://wa.me/905XXXXXXXXX"
+              href="https://wa.me/905069348329"
               target="_blank"
               rel="noopener"
               aria-label="WhatsApp"

@@ -1,39 +1,69 @@
 import React from "react";
 import { Box, Typography, Paper, Stack } from "@mui/material";
-import EngineeringIcon from "@mui/icons-material/Engineering";
-import ConstructionIcon from "@mui/icons-material/Construction";
-import TerrainIcon from "@mui/icons-material/Terrain";
-import HomeWorkIcon from "@mui/icons-material/HomeWork";
+import SpeedIcon from "@mui/icons-material/Speed";
+import BuildIcon from "@mui/icons-material/Build";
+import ArchitectureIcon from "@mui/icons-material/Architecture";
+import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+import HandshakeIcon from "@mui/icons-material/Handshake";
+import LayersIcon from "@mui/icons-material/Layers";
+import BuildCircleIcon from "@mui/icons-material/BuildCircle";
+import FoundationIcon from "@mui/icons-material/Foundation";
+import AccountTreeIcon from "@mui/icons-material/AccountTree";
 
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
 
 const services = [
   {
-    icon: <EngineeringIcon sx={{ fontSize: 60, color: "#1976d2" }} />,
-    title: "Statik Proje Tasarımı",
+    icon: <SpeedIcon sx={{ fontSize: 60, color: "#1976d2" }} />,
+    title: "Performans Analizi",
     description:
-      "Dayanıklı ve güvenilir yapılar için ekonomiyi gözeten statik proje çözümleri sunuyoruz.",
+      "Mevcut yapıların deprem ve dayanıklılık performansını teknik analizlerle değerlendiriyoruz.",
   },
   {
-    icon: <ConstructionIcon sx={{ fontSize: 60, color: "#388e3c" }} />,
-    title: "İnşaat Yönetimi",
+    icon: <BuildIcon sx={{ fontSize: 60, color: "#388e3c" }} />,
+    title: "Güçlendirme Proje ve Uygulama",
     description:
-      "Projelerinizin her aşamasında planlama, kontrol ve koordinasyon hizmetleri sağlıyoruz.",
+      "Binalarınızı yönetmeliklere uygun şekilde güçlendirme projeleri hazırlayıp uyguluyoruz.",
   },
   {
-    icon: <TerrainIcon sx={{ fontSize: 60, color: "#fbc02d" }} />,
-    title: "Zemin Etüdü",
+    icon: <ArchitectureIcon sx={{ fontSize: 60, color: "#fbc02d" }} />,
+    title: "Statik Proje",
     description:
-      "Güvenli temeller için zemin analizleri ve raporlama desteği sunuyoruz.",
+      "Güvenli, dayanıklı ve ekonomik yapılar için statik proje tasarımı yapıyoruz.",
   },
   {
-    icon: <HomeWorkIcon sx={{ fontSize: 60, color: "#d32f2f" }} />,
-    title: "Kentsel Dönüşüm ",
+    icon: <BusinessCenterIcon sx={{ fontSize: 60, color: "#d32f2f" }} />,
+    title: "Müteahhitlik",
     description:
-      "Kentsel dönüşüm süreçlerinizde yönetim ve danışmanlık hizmetleri ile yanınızdayız.",
+      "Anahtar teslim inşaat projelerinde profesyonel müteahhitlik hizmeti sunuyoruz.",
+  },
+  {
+    icon: <LayersIcon sx={{ fontSize: 60, color: "#009688" }} />,
+    title: "FRP Güçlendirme",
+    description:
+      "Fiber takviyeli polimer sistemlerle yapılarınızın dayanımını artırıyoruz.",
+  },
+  {
+    icon: <BuildCircleIcon sx={{ fontSize: 60, color: "#ff9800" }} />,
+    title: "Çelik Güçlendirme",
+    description:
+      "Çelik elemanlarla bina taşıyıcı sistemlerini güçlendiriyoruz.",
+  },
+  {
+    icon: <FoundationIcon sx={{ fontSize: 60, color: "#795548" }} />,
+    title: "Betonarme Mantolama",
+    description:
+      "Mevcut kolon ve kirişleri betonarme kaplama yöntemi ile güçlendiriyoruz.",
+  },
+  {
+    icon: <AccountTreeIcon sx={{ fontSize: 60, color: "#607d8b" }} />,
+    title: "Alt Yapı ve Üst Yapı İnşaat",
+    description:
+      "Yol, kanalizasyon, bina ve diğer tüm alt/üst yapı projelerini hayata geçiriyoruz. Ve taahhüt sunuyoruz.",
   },
 ];
+
 
 const MotionPaper = motion(Paper); // framer-motion ile animasyon eklenebilir Paper
 
