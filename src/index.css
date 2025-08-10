@@ -11,3 +11,10 @@ body {
   background-color: #faf9f7; /* beyaz yerine soft gri */
  
 }
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;  /* Yatay taşmayı engeller */
+  width: 100vw;
+}
+

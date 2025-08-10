@@ -18,21 +18,21 @@ const ProjectCard = ({ project, reverse, index }) => {
 
   // Small telefonlar için animasyonlar (yatay yerine düşey hareket)
   const imageVariantsSmallPhone = {
-    hidden: { opacity: 0, y: 20, scale: 0.98 },
+    hidden: { opacity: 0, y: 10, scale: 1 },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 0.6, ease: "easeOut", delay: index * 0.08 },
+      transition: { duration: 0.5, ease: "easeOut", delay: index * 0.08 },
     },
   };
 
   const contentVariantsSmallPhone = {
-    hidden: { opacity: 0, y: 18 },
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut", delay: index * 0.08 + 0.08 },
+      transition: { duration: 0.5, ease: "easeOut", delay: index * 0.08 + 0.08 },
     },
   };
 
@@ -68,10 +68,11 @@ const ProjectCard = ({ project, reverse, index }) => {
         flexDirection: { xs: "column", md: reverse ? "row-reverse" : "row" },
         justifyContent: "space-between",
         alignItems: { xs: "flex-start", md: "center" },
-        pl: index % 2 === 1 ? 3 : 0,
+        pl: { xs: 0, md: index % 2 === 1 ? 3 : 0 },
         gap: { xs: 3, md: 10 },
         backgroundColor: index % 2 === 0 ? "#FAFBFC" : "#EEF1F6",
         mb: 6,
+        overflowX: "hidden", // Taşmayı engellemek için
       }}
     >
       {/* Resim */}
@@ -81,7 +82,7 @@ const ProjectCard = ({ project, reverse, index }) => {
         animate={inView ? "visible" : "hidden"}
         style={{
           flex: "0 0 100%",
-          maxWidth: "500px",
+          maxWidth: isSmallPhone ? "100%" : "500px",
           height: "370px",
           overflow: "hidden",
           borderRadius: 12,
