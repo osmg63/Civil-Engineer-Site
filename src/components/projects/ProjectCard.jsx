@@ -5,88 +5,83 @@ import { motion } from "framer-motion";
 
 const MotionDiv = motion.div;
 
-const ProjectCard = ({ project, reverse, index }) => {
+const ProjectCard = ({ project, index }) => {
   const theme = useTheme();
 
-  // Küçük telefonlar için genişlik aralığı (320-430px)
-  const isSmallPhone = useMediaQuery("(min-width:320px) and (max-width:430px)");
+  const isXs = useMediaQuery(theme.breakpoints.only("xs"));
+  const isSm = useMediaQuery(theme.breakpoints.only("sm"));
+  const isMd = useMediaQuery(theme.breakpoints.only("md"));
+  const isLg = useMediaQuery(theme.breakpoints.only("lg"));
+  const isXl = useMediaQuery(theme.breakpoints.only("xl"));
 
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.3,
-  });
+  const baseDelay = index * 0.3; // Delay arttı, daha yavaş sıra efekti için
 
-  // Small telefonlar için animasyonlar (yatay yerine düşey hareket)
-  const imageVariantsSmallPhone = {
-    hidden: { opacity: 0, y: 10, scale: 1 },
+  // Daha yumuşak ve şık bir easing fonksiyonu cubic bezier
+  const easing = [0.42, 0, 0.58, 1]; // easeInOut benzeri, yumuşak geçiş
+
+  const imageVariants = {
+    hidden: { opacity: 0, y: -40, scale: 0.97 },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 0.5, ease: "easeOut", delay: index * 0.08 },
+      transition: { duration: 1.2, ease: easing, delay: baseDelay },
     },
   };
 
-  const contentVariantsSmallPhone = {
-    hidden: { opacity: 0, y: 10 },
+  const contentVariants = {
+    hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut", delay: index * 0.08 + 0.08 },
+      transition: { duration: 1.2, ease: easing, delay: baseDelay + 0.3 },
     },
   };
 
-  // Büyük ekranlar için animasyonlar (reverse kullanarak x yönü ayarlanıyor)
-  const imageVariantsDefault = {
-    hidden: { opacity: 0, x: reverse ? 100 : -100, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      scale: 1,
-      transition: { duration: 0.8, ease: "easeOut", delay: index * 0.12 },
-    },
-  };
+  let maxWidthImage = "100%";
+  let maxWidthContent = "100%";
+  let heightImage = 250;
 
-  const contentVariantsDefault = {
-    hidden: { opacity: 0, x: reverse ? -100 : 100 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { delay: index * 0.12 + 0.12, duration: 0.8, ease: "easeOut" },
-    },
-  };
-
-  // Animasyonları koşula göre seç
-  const imageVariants = isSmallPhone ? imageVariantsSmallPhone : imageVariantsDefault;
-  const contentVariants = isSmallPhone ? contentVariantsSmallPhone : contentVariantsDefault;
+  if (isSm) {
+    maxWidthImage = "450px";
+    maxWidthContent = "450px";
+    heightImage = 300;
+  } else if (isMd) {
+    maxWidthImage = "480px";
+    maxWidthContent = "480px";
+    heightImage = 340;
+  } else if (isLg || isXl) {
+    maxWidthImage = "500px";
+    maxWidthContent = "500px";
+    heightImage = 370;
+  }
 
   return (
     <Box
-      ref={ref}
       sx={{
         display: "flex",
-        flexDirection: { xs: "column", md: reverse ? "row-reverse" : "row" },
+        flexDirection: { xs: "column", sm: "column", md: "row" },
         justifyContent: "space-between",
         alignItems: { xs: "flex-start", md: "center" },
-        pl: { xs: 0, md: index % 2 === 1 ? 3 : 0 },
-        gap: { xs: 3, md: 10 },
+        gap: { xs: 3, md: 8 },
         backgroundColor: index % 2 === 0 ? "#FAFBFC" : "#EEF1F6",
         mb: 6,
-        overflowX: "hidden", // Taşmayı engellemek için
+        px: { xs: 2, md: 0 },
       }}
     >
-      {/* Resim */}
       <MotionDiv
         variants={imageVariants}
         initial="hidden"
-        animate={inView ? "visible" : "hidden"}
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
         style={{
-          flex: "0 0 100%",
-          maxWidth: isSmallPhone ? "100%" : "500px",
-          height: "370px",
+          flex: "0 0 auto",
+          maxWidth: maxWidthImage,
+          width: "100%",
+          height: heightImage,
           overflow: "hidden",
           borderRadius: 12,
-          boxShadow: !isSmallPhone && inView ? "0 15px 30px rgba(0,0,0,0.2)" : "none",
+          boxShadow: "0 15px 30px rgba(0,0,0,0.2)",
         }}
       >
         <img
@@ -103,32 +98,47 @@ const ProjectCard = ({ project, reverse, index }) => {
         />
       </MotionDiv>
 
-      {/* İçerik */}
       <MotionDiv
         variants={contentVariants}
         initial="hidden"
-        animate={inView ? "visible" : "hidden"}
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
         style={{
           flex: 1,
-          maxWidth: "500px",
-          marginTop: 16,
+          maxWidth: maxWidthContent,
+          marginTop: { xs: 2, md: 0 },
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-evenly",
-          height: "350px",
+          height: heightImage,
           textAlign: "left",
         }}
       >
-        <Typography component="h2" variant="h5" gutterBottom sx={{ fontWeight: 700, color: "#2c3e50" }}>
+        <Typography
+          component="h2"
+          variant="h5"
+          gutterBottom
+          sx={{ fontWeight: 700, color: "#2c3e50" }}
+        >
           {project.title}
         </Typography>
 
-        <Typography component="p" variant="body1" gutterBottom sx={{ color: "#34495e", lineHeight: 1.6 }}>
+        <Typography
+          component="p"
+          variant="body1"
+          gutterBottom
+          sx={{ color: "#34495e", lineHeight: 1.6 }}
+        >
           {project.description}
         </Typography>
 
         {project.location && project.date && (
-          <Typography component="p" variant="body2" color="text.secondary" sx={{ fontStyle: "italic" }}>
+          <Typography
+            component="p"
+            variant="body2"
+            color="text.secondary"
+            sx={{ fontStyle: "italic" }}
+          >
             📍 {project.location} | 📅 {project.date}
           </Typography>
         )}
